@@ -5,12 +5,14 @@
 		"lib": ["es2022", "dom", "dom.iterable"],
 		"paths": {
 			"@/assets/*": ["src/assets/*"],
+			"@/pages/*": ["src/pages/*"],
 			"@/components/*": ["src/components/*"],
 			"@/data/*": ["src/data/*"],
 			"@/layouts/*": ["src/layouts/*"],
 			"@/utils": ["src/utils/index.ts"],
 			"@/types": ["src/types.ts"],
 			"@/site-config": ["src/site.config.ts"]
+			
 		}
 	},
 	"include": ["./.eslintrc.cjs", "**/*"],
