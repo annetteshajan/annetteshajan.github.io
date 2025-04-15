@@ -37,8 +37,10 @@ const url = new URL(Astro.request.url);
 			}
 		</nav>
 	</div>
-	<Search />
-	<ThemeToggle />
+	<div class="flex items-center gap-4">
+		<Search />
+		<ThemeToggle />
+	</div>
 	<mobile-button>
 		<button
 			aria-expanded="false"
