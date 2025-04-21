@@ -3,7 +3,6 @@ title: "Some cool Pythonic Code Constructs"
 description: "Useful python techniques to convey more in less lines of code"
 publishDate: "15 April 2025"
 tags: ["coding","tipsntricks"]
-draft: true
 ---
 
 ## Introduction
