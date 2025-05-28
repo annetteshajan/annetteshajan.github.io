@@ -1,5 +1,5 @@
 ---
-title: "Did anybody understand what is an NP problem?"
+title: ""
 description: "CTF Writeup - Basic Pentesting: This is a machine that allows you to practise web app hacking and privilege escalation
 
 "

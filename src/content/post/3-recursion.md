@@ -23,17 +23,23 @@ In a functional language, we only reuse functions and there is no iterative conc
 ### Call Stack
 Function calls by default takes up the processor's call stack i.e. a memory which stores which point to return to after the function returns. In case of recursion, the call stack will keep building up until it reaches the limit of the call stack and hits a stack overflow exception.
 ```python
-def fn1(num):
+def factorial(num):
     if num==1:
         return 1
-    return num*fn1(num-1)
+    return num*factorial(num-1)
 ```
-In this example, if we call `fn1(5)`, the call stack would look like:
-- fn1(1)
-- fn1(2)
-- fn1(3)
-- fn1(4)
-- fn1(5)
+In this example, if we call `factorial(5)`, the call stack would look like:
+
+```
+Call Stack (Top ↓)
+
+factorial(3)
+├── Calls factorial(2)
+│   ├── Calls factorial(1)
+│   │   └── Base case returns 1
+│   └── Returns 2 * 1 = 2
+└── Returns 3 * 2 = 6
+```
 
 It starts popping from the top and returning the value to the caller and in the end computes the factorial of 5.
 The pushing and popping at each step are quite costly compared to regular instructions. It involves writing and reading from the stack added with the risk of overflowing the stack. Note here that it is important to store each call since we are actually adding data with every recursive call. For example in the first call we calculate fn1(4) and then multiply 5 on top of it.
@@ -43,20 +49,20 @@ Due to the disadvantages it brings, some functional languages like Scala and Has
 Tail recursion is a way of performing recursion in such a way that the recursive call is only a call to itself with the sufficient parameters. This way we keep overwriting the stack call and the base case will return the required value.
 If we consider the same example of computing the factorial and implement tail recursion on it, it would look like this:
 ```python
-def fn1(num, fact=1):
+def factorial(num, fact=1):
     if num==1:
         return fact
     return fn1(num-1,fact*num)
 ```
 
-In this example we see that there is only a single call of fn1 in the end, and when it hits the base case it would return the actual answer. We would not need to restore the stack value on every iteration. If we go over this function for fn1(5), the stack initially looks like
-- fn1(5,1)
+In this example we see that there is only a single call of fn1 in the end, and when it hits the base case it would return the actual answer. We would not need to restore the stack value on every iteration. If we go over this function for factorial(5), the stack initially looks like
+- factorial(5,1)
 
 Then instead of appending the stack, it will only update the stack parameters with:
-- fn1(4,5)
+- factorial(4,5)
 
 This keeps repeating till the stack parameters become
-- fn1(1,120)
+- factorial(1,120)
 
 It finally returns `120` immediately when `num=1`. Here we can see that an operation using space complexity _O(N)_ has now effectively been reduced to _O(1)_. There is no possibility of a stack overflow to occur here.
 It basically means that with this optimization, recursion can happen at the same speed as their iterative counterpart. The only operation the function does is jumps to itself and it only has to save a single call at any given point reusing the single stack frame.
@@ -75,10 +81,10 @@ In the end, we only need to solve the simplest and most basic case of the proble
 1. Calculate the factorial of the most simple case i.e. factorial of 1 is 1
 2. If the number is not 1 we multiply the current number into the subproblem of the number 1 less than it.
 ### Sorting
-1. **Merge Sort**: We split the list into two and sort each of them and then merge them. The subproblems here are the two sub arrays.
-2. **Quick Sort**: We identify a pivot and then solve the subproblem of arranging the subarrays lesser than the pivot and greater than pivot.
+1. **Merge Sort**: Merge sort recursively divides the array in half until we reach base cases of size 1. Then it merges sorted halves.The subproblems here are the two sub arrays.
+2. **Quick Sort**: We identify a pivot and then solve the subproblem of sorting the subarrays lesser than the pivot and greater than pivot.
 ### Trees
-Trees are a classic problem where we use a lot of recursion. If we consider traversal of a tree, it is a combination of subproblems of its children. If we consider inorder traversal we need to solve the left child subproblem then the root and then the right child subproblem.
+Trees are a classic problem where we use a lot of recursion. Traversals (like in-order, pre-order, post-order), height calculation, and searching are classic examples of recursive tree operations. If we consider traversal of a tree, it is a combination of subproblems of its children. Looking at inorder traversal we need to solve the left child subproblem then the root and then the right child subproblem.
 ```python
 def inorderTraversal(root):
     if root is None:
@@ -104,7 +110,16 @@ def fib(n, memo={}):
 This is basically storing all the subproblems in memo. This makes it a fast implementation with minimal code
 
 Another place where we often see DP with recursion is in grid related problems. The solution ends up being a bottom up solution where we start with the base case at the last position and build it up to the top position.
-
+For example, if we want to find the unique paths from (0,0) to (m,n) we can use a combination of recursion and DP as follows
+```python
+def uniquePaths(m, n, memo={}):
+    if m == 1 or n == 1:
+        return 1
+    if (m, n) in memo:
+        return memo[(m, n)]
+    memo[(m, n)] = uniquePaths(m-1, n, memo) + uniquePaths(m, n-1, memo)
+    return memo[(m, n)]
+```
 
 ## Pitfalls
 Here are common pitfalls that many of us face while writing recursive solutions:
