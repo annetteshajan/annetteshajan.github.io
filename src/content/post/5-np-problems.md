@@ -29,10 +29,10 @@ def searchConstantTime(searchList, num):
 ```
 
 So when we consider a NP problem it is basically non determinate in polynomial time i.e any problem where we have an exponential time complexity and cannot be solved in polynomial time by a polynomial determinate machine it becomes a NP problem.
-For example if we have to create subsets - a classic backtracking problem; the best known algorithm for creating subsets takes 2^n time. (Apologies for my crappy drawing). For each element in the set we have two options and hence it takes *O(2^n)* time.
+For example if we have to find the subset of a set which sums upto a number S - a classic backtracking problem; the best known algorithm for creating subsets takes 2^n time. (Apologies for my crappy drawing). For each element in the set we have two options and hence it takes *O(2^n)* time.
 ![Subset problem](/Np/sets.png)
 So there isn't any known way to reduce the subset problem to a polynomial problem and until we find a solution for it it will remain a NP problem. Which finally leads to the conclusion that all problems in P class were once in NP class and hence we keep P as a subset of NP. A NP problem will become P when we find a solution for the problem in polynomial time. <img src="/Np/NPvsP.png" alt="NP and P relationship" style="width: 40%; height: auto;" />
-An important thing to remember in NP problems is that it can be verified in polynomial time. For example if I say check whether {1,2} is a subset of {1,2,3} it can be done in O(n) time here which is a polynomial problem.
+An important thing to remember in NP problems is that it can be verified in polynomial time. For example if I say check whether {1,2} is a subset of {1,2,3} which sums to 5, it can be done in O(n) time here which is a polynomial problem.
 
 
 So takeaway here is P class problems can be **solved and verified** in polynomial time.
